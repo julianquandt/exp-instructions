@@ -1,0 +1,9 @@
+MANIFEST.in
+README.md
+setup.py
+exp_instructions/__init__.py
+exp_instructions/exp_instructions.py
+instructions.egg-info/PKG-INFO
+instructions.egg-info/SOURCES.txt
+instructions.egg-info/dependency_links.txt
+instructions.egg-info/top_level.txt

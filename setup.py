@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="instructions",
+    name="exp-instructions",
     version="0.0.1",
     author="Julian Quandt",
     author_email="julian_quandt@live.de",
