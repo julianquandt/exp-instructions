@@ -1,4 +1,4 @@
-import pygame, os
+import pygame, os, sys
 from psychopy import visual, gui
 from psychopy import event as ev
 
@@ -21,7 +21,19 @@ cwd = os.getcwd()
 # ---------------------------------------Instructions---------------------------#
 
 
-def showInstructions(Screen, aTime, instrDict, instrPath, backKey = "backspace", nextKey = "space", *args):
+def showInstructions(Screen, aTime, instrDict, instrPath, backKey = "backspace", nextKey = "space", trigger_return = False, *args):
+    '''
+
+    :param Screen:          PG.Screen:  A pygame Screen object
+    :param aTime:           STR:        key in a dictionary (file-name) indicating what sequence of instrucitons should be displayed
+    :param instrDict:       STR:        name of the dictionary that contains the instructions
+    :param instrPath:       STR:        file path to folder containing instruction images
+    :param backKey:         STR:        letter or number indicating the name of the key to go back to last slide
+    :param nextKey:         STR:        letter or number indicating the name of the key to go back to last slide
+    :param trigger_return:  BOOL:       indicator for whether the TRUE for nextKey and FALSE for backKey should be returned
+    :param args:            ARGS:       additional arguments (pictures) that can be displayed #TODO: change this to kwargs
+    :return:                BOOL:       TRUE/FALSE if trigger_return = True
+    '''
     page = 0
     instr_path_os = os.path.normpath(instrPath)
     instr_screen = Screen
@@ -34,7 +46,7 @@ def showInstructions(Screen, aTime, instrDict, instrPath, backKey = "backspace",
                 curPage.draw()
                 Screen.flip()
                 instrKeys = ev.waitKeys(keyList=[backKey, nextKey, 'escape'])
-                if instrKeys[0] == backKey and page > 0 and instrDict.get(aTime)[page - 1] != "trainingTime":
+                if instrKeys[0] == backKey and page > 0 and instrDict.get(aTime)[page - 1] != "trainingTime": #TODO: edit
                     page = page - 1
                     if backKey == "y" or backKey == "9":
                         return False
@@ -66,11 +78,11 @@ def showInstructions(Screen, aTime, instrDict, instrPath, backKey = "backspace",
                     if key_name == "escape":
                         quitExp()
                     elif key_name == backKey:
-                        if backKey == "y" or backKey == "9":
-                            return False
-                        elif page > 0:
+                        if page > 0:
                             page -= 1
-                    elif key_name == nextKey or nextKey == "9":
-                        if nextKey == "n":
-                            return True
+                        if trigger_return:
+                            return False
+                    elif key_name == nextKey:
                         page += 1
+                        if trigger_return:
+                            return True

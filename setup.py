@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="exp-instructions",
-    version="0.0.1",
+    version="0.1.0",
     author="Julian Quandt",
     author_email="julian_quandt@live.de",
     description="A convenient way to display experimental instructions in python (via pygame or psychopy).",
